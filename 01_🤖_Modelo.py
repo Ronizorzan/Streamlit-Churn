@@ -44,7 +44,7 @@ def load_data():
     X_teste = seletor.transform(X_teste)                                        # "Hiper-parâmetros anteriores"
     #floresta = RandomForestClassifier(bootstrap = True, max_depth = 10, max_leaf_nodes = 50, n_estimators = 500, warm_start = False, class_weight={0:1,1:2.5}) 
     floresta = RandomForestClassifier(bootstrap=True, criterion="gini", max_features=0.1, min_samples_leaf=3,
-                                       min_samples_split=2, n_estimators=100, class_weight={0:1, 1:1.85}, random_state=3214)
+                                       min_samples_split=2, n_estimators=100, class_weight={0:1, 1:1.85}, random_state=3231)
     modelo = floresta.fit(X_treinamento, y_treinamento)
     previsoes = cross_val_score(modelo, X_teste, y_teste, cv=5)
     acuracia = previsoes.mean()
@@ -87,7 +87,7 @@ with st.expander("Selecione os atributos para prever"):
     st.selectbox("TV Por Streaming", dados["StreamingTV"].unique()),
     st.selectbox("Contrato", dados["Contract"].unique()),
     st.selectbox("Faturamento Sem Papel", dados["PaperlessBilling"].unique(), index=1),
-    st.selectbox("Método de Pagamento", dados["PaymentMethod"].unique(), index=1),
+    st.selectbox("Método de Pagamento", dados["PaymentMethod"].unique(), index=0),
     st.number_input("Cobranças Mensais", min_value=0.0, step=10.0, value= 65.0),
     st.number_input("Cobranças Totais", min_value=0.0, step=100.0, value=500.0)]
     processar = st.button("Processar os Dados")
