@@ -1,6 +1,6 @@
 #Página de cálculos financeiros
 import streamlit as st
-from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, accuracy_score
+from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
 from yellowbrick.classifier import ConfusionMatrix
 
 
@@ -26,7 +26,7 @@ else:
         precision = precision_score(y_teste, previsoes, average="weighted")
         recall = recall_score(y_teste, previsoes, average="weighted")
         f1 = f1_score(y_teste, previsoes, average="macro")
-        acuracia = accuracy_score(y_teste, previsoes)
+        acuracia = st.session_state["acuracia"]
         calcular = st.button("Calcular")
     if calcular:
         col1, col2 = st.columns(2, gap="medium", vertical_alignment="center")
