@@ -8,6 +8,7 @@ from sklearn.feature_selection import RFE
 
 
 
+
 #Configuração do Layout
 st.set_page_config("Classificação de Churn", layout="centered", page_icon=":robot_face:")
 st.title("Previsões do Modelo")
