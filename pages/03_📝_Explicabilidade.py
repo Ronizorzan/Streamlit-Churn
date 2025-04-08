@@ -98,9 +98,10 @@ if processar and instancia:
         with st.spinner("Aguarde... Carregando os Modelos"):
             col1, col2 = st.columns([0.5,0.45], gap="large")
             with col1:                
-                st.header("Explicabilidade Global", divider="green")                                            
+                st.header("Explicabilidade Global", divider="green", help="Os gráficos são interativos e fornecem várias funcionalidades\
+                          \n como zoom, tela cheia, download, filtragem, entre outros")                                            
                 st.plotly_chart(explanation, use_container_width=True)                
-                st.write("<div style='color:green; font-size:25; font-weight:bold'>Descubra os atributos com maior influência\
+                st.write("<div style='color:black; font-size:18px; font-weight:bold'>Descubra os atributos com maior influência\
                          sobre as decisões do modelo. Observe que, de um modo geral, o modelo tende a utilizar com mais frequência\
                          os atributos mais importantes em suas previsões. Esses atributos exercem grande impacto sobre as intenções dos clientes\
                          em relação à empresa. Isso significa que os valores desses atributos podem ser essencias para determinar\
@@ -111,7 +112,7 @@ if processar and instancia:
             #A explicabilidade Local será implementada diretamente para maior dinamismo
             with col2:                    
                 st.header("Explicabilidade Local", divider="green", help="Os gráficos são interativos e fornecem várias funcionalidades\
-                          \n como zoom, tela cheia, download, filtragem, entre outros")                 
+                          \n como zoom, tela cheia, download, filtragem, entre outros")
                 nova_instancia = X_teste[instancia,:] #Localização da linha para explicar em X_teste                                                                                                                                
 
                 # Inicializando o SHAP e obtendo os valores
@@ -120,7 +121,7 @@ if processar and instancia:
                 shap_values = explain.values[:,1]  # Extraindo os valores SHAP para a instância
                 
                 # Cores baseadas nos valores SHAP
-                colors = ["Negativa" if value < 0 else "Positiva" for value in shap_values]
+                colors = ["Não Abandono" if value < 0 else "Abandono" for value in shap_values]
 
                 # Criando o DataFrame para visualização
                 shap_values_df = pd.DataFrame({
@@ -131,7 +132,7 @@ if processar and instancia:
                 
                 #Ordenação por valor absoluto para visualização mais intuitiva
                 shap_values_df = shap_values_df.reindex(shap_values_df['Valor SHAP'].abs().sort_values(ascending=False).index).head(features)
-                shap_values_df.sort_values("Valor SHAP", ascending=True, inplace=True)
+                shap_values_df.sort_values("Valor SHAP", ascending=True, inplace=True) #Ordenação do maior para o menor
                 
                 # Criando o gráfico com Plotly
                 fig = px.bar(
@@ -140,8 +141,8 @@ if processar and instancia:
                     y='Atributo', title="Contribuição dos Atributos para a Previsão",
                     color='Contribuição',  # Utilizando as cores personalizadas
                     text='Valor SHAP',  # Exibindo os valores SHAP nos gráficos
-                    color_discrete_map={"Positiva": "#006000", "Negativa": "#FF1000"},
-                    orientation='h',  # Gráfico horizontal para melhor legibilidade
+                    color_discrete_map={"Abandono": "#FF1000", "Não Abandono": "#006000"},
+                    orientation='h',  # Gráfico horizontal para melhor legibilidade                    
                     labels={
                         "Valor da Contribuição": "Contribuição SHAP",
                         "Atributo": "Característica"
@@ -158,8 +159,8 @@ if processar and instancia:
                         font=dict(size=20),
                         x=0.25  # Centraliza o título
                     ),
-                    xaxis=dict(title="Valor SHAP", title_font=dict(size=20), tickfont=dict(size=16)),
-                    yaxis=dict(title="Atributos", title_font=dict(size=20), tickfont=dict(size=16)),
+                    xaxis=dict(title="Valor SHAP", title_font=dict(size=18), tickfont=dict(size=14)),
+                    yaxis=dict(title="Atributos", title_font=dict(size=18), tickfont=dict(size=14)),
                     template="plotly_white"  # Layout mais clean
                     )
                 fig.add_vline(x=0, line=dict(color="black", width=2.0, dash="solid"))
@@ -178,12 +179,12 @@ if processar and instancia:
                 for col in instancia_selecionada_df.columns:
                     if col in encoders:
                         instancia_selecionada_df[col] = encoders[col].inverse_transform(instancia_selecionada_df[col].astype(int))
-                mapeamento_classe = {0: "Não", 1: "Sim"} #Mapeamento das classes para o português
-                st.write("<div style='font-size:20px; font-weight:bold'>Valores originais do Cliente</div>", unsafe_allow_html=True)                                
+                mapeamento_classe = {0: "Não Abandonou", 1: "Abandonou"} #Mapeamento das classes para o português
+                st.write("<div style='color:black; font-size:20px; font-weight:bold'>Valores originais do Cliente</div>", unsafe_allow_html=True)                                
                 st.write(instancia_selecionada_df)
-                st.write(f"<div style='font-size:22px; font-weight:bold'>   Ocorrência real: {mapeamento_classe[valor_original]}\
-                     --------------------  Ocorrência prevista: {mapeamento_classe[int(previsao)]}</div>", unsafe_allow_html=True)                              
+                st.write(f"<div style='color:black; font-size:20px; font-weight:bold'>   Ocorrência real: {mapeamento_classe[valor_original]}\
+                     -------------  Ocorrência prevista: {mapeamento_classe[int(previsao)]}</div>", unsafe_allow_html=True)                              
                 if previsao==valor_original:
-                    st.write("<div style='color:green; font-size:30px; font-weight:bold'>A previsão do Modelo está correta ✅</div> ", unsafe_allow_html=True)
+                    st.write("<div style='color:green; font-size:25px; font-weight:bold'>A previsão do Modelo está correta ✅</div> ", unsafe_allow_html=True)
                 else:
-                    st.write("<div style='color:red; font-size:30px; font-weight:bold'> A previsão do Modelo está incorreta 🚨</div> ", unsafe_allow_html=True)
+                    st.write("<div style='color:red; font-size:25px; font-weight:bold'> A previsão do Modelo está incorreta 🚨</div> ", unsafe_allow_html=True)
