@@ -96,7 +96,7 @@ if processar and instancia:
 
         #Exibição da Explicabilidade Global
         with st.spinner("Aguarde... Carregando os Modelos"):
-            col1, col2 = st.columns([0.5,0.45], gap="large")
+            col1, col2 = st.columns([0.55,0.45], gap="large")
             with col1:                
                 st.header("Explicabilidade Global", divider="green", help="Os gráficos são interativos e fornecem várias funcionalidades\
                           \n como zoom, tela cheia, download, filtragem, entre outros")                                            
@@ -182,8 +182,8 @@ if processar and instancia:
                 mapeamento_classe = {0: "Não Abandonou", 1: "Abandonou"} #Mapeamento das classes para o português
                 st.write("<div style='color:black; font-size:20px; font-weight:bold'>Valores originais do Cliente</div>", unsafe_allow_html=True)                                
                 st.write(instancia_selecionada_df)
-                st.write(f"<div style='color:black; font-size:20px; font-weight:bold'>   Ocorrência real: {mapeamento_classe[valor_original]}\
-                     -------------  Ocorrência prevista: {mapeamento_classe[int(previsao)]}</div>", unsafe_allow_html=True)                              
+                st.write(f"<div style='color:black; font-size:19px; font-weight:bold'>   Ocorrência real: {mapeamento_classe[valor_original]}\
+                     ---------  Ocorrência prevista: {mapeamento_classe[int(previsao)]}</div>", unsafe_allow_html=True)                              
                 if previsao==valor_original:
                     st.write("<div style='color:green; font-size:25px; font-weight:bold'>A previsão do Modelo está correta ✅</div> ", unsafe_allow_html=True)
                 else:

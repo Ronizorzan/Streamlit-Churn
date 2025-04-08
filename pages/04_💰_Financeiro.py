@@ -42,7 +42,7 @@ else:
         acuracia = st.session_state["acuracia"]
         calcular = st.button("Calcular")
     if calcular:
-        col1, col2 = st.columns(2, gap="large")
+        col1, col2 = st.columns(2, gap="medium")
         with col1: # Matriz de Confusão Gráfica            
             cm = ConfusionMatrix(modelo, classes=["Não", "Sim"], cmap="Blues", percent=False)            
             cm.fit(X_teste, y_teste)
@@ -59,16 +59,16 @@ else:
             st.subheader(":blue[**A Matriz abaixo exibe os erros e acertos do modelo**]", divider="blue", help="Confira abaixo o impacto do modelo\
                                 \n do ponto de vista técnico")
             st.pyplot(cm.fig, use_container_width=True)
-            st.write("""<div style="font-size:19px; font-weight:bold; color:darkblue"> 
+            st.write("""<div style="font-size:17px; font-weight:bold; color:darkblue"> 
                      A matriz de confusão acima mostra uma visão clara do desempenho do modelo
                     destacando os acertos e os erros do modelo. Isso nos traz uma visão realista 
                     do desempenho do modelo.<br> Confira isso em mais detalhes abaixo. </div><br>""", unsafe_allow_html=True)
             
-            st.write(f"""<div style='font-size:21px; font-weight:bold'> De um total de <span style="color:darkblue">{clientes_nao_evasivos}</span>
+            st.write(f"""<div style='font-size:19px; font-weight:bold'> De um total de <span style="color:darkblue">{clientes_nao_evasivos}</span>
                      clientes com risco de evasão <span style="color:green">{verd_neg}</span> foram<br>corretamente
                     identificados pelo modelo e <span style="color:red">{falso_posit}</span> não foram identificados.</div><br>""", unsafe_allow_html=True )
             
-            st.write(f"""<div style='font-size:21px; font-weight:bold'> De um total de <span style="color:darkblue">{clientes_evasivos}</span>
+            st.write(f"""<div style='font-size:19px; font-weight:bold'> De um total de <span style="color:darkblue">{clientes_evasivos}</span>
                      clientes sem risco de evasão <span style="color:green">{verd_posit}</span> foram<br>
                      corretamente indentificados pelo modelo e <span style="color:red">{falso_neg}</span> não foram. </div>""", unsafe_allow_html=True )
             
@@ -83,41 +83,41 @@ else:
 
             st.subheader(":blue[Métricas Adicionais]", divider="blue", help="Confira abaixo algumas métricas\
                          detalhadas do desempenho do modelo")
-            st.write(f"<div style='color:#1968D4; font-size:22px; font-weight:bold'> Acurácia do Modelo:  {acuracia*100:.2f}%", unsafe_allow_html=True)
-            st.write("<div style='font-size:20px; font-weight:bold'> --> O modelo acertou aproximadamente 8 de 10 previsões nos dados de teste </div>", unsafe_allow_html=True)
-            st.write(f"<div style='color:#1968D4; font-size:22px; font-weight:bold'>Precisão(Precision): {precision*100:.2f}%</div>", unsafe_allow_html=True)
-            st.write("<div style='font-size:20px; font-weight:bold'> --> De todos os previstos como \'desertores\' quantos realmente evadiram</div>", unsafe_allow_html=True)
-            st.write(f"<div style='color:#1968D4; font-size:22px; font-weight:bold'>Sensibilidade(Recall):  {recall*100:.2f}%</div>", unsafe_allow_html=True)
-            st.write("<div style='font-size:20px; font-weight:bold'> --> De todos os \'desertores\', quantos foram corretamente identificados pelo Modelo </div>", unsafe_allow_html=True)
-            st.write(f"<div style='color:#1968D4; font-size:22px; font-weight:bold'>F1-Score: {f1*100:.2f}%</div>", unsafe_allow_html=True)
-            st.write("<div style='font-size:20px; font-weight:bold'> --> Média poderada: Calculada através da média harmônica de Precisão e Recall</div>", unsafe_allow_html=True )
+            st.write(f"<div style='color:#1968D4; font-size:20px; font-weight:bold'> Acurácia do Modelo:  {acuracia*100:.2f}%", unsafe_allow_html=True)
+            st.write("<div style='font-size:18px; font-weight:bold'> --> O modelo acertou aproximadamente 8 de 10 previsões nos dados de teste </div>", unsafe_allow_html=True)
+            st.write(f"<div style='color:#1968D4; font-size:20px; font-weight:bold'>Precisão(Precision): {precision*100:.2f}%</div>", unsafe_allow_html=True)
+            st.write("<div style='font-size:18px; font-weight:bold'> --> De todos os previstos como \'desertores\' quantos realmente evadiram</div>", unsafe_allow_html=True)
+            st.write(f"<div style='color:#1968D4; font-size:20px; font-weight:bold'>Sensibilidade(Recall):  {recall*100:.2f}%</div>", unsafe_allow_html=True)
+            st.write("<div style='font-size:18px; font-weight:bold'> --> De todos os \'desertores\', quantos foram corretamente identificados pelo Modelo </div>", unsafe_allow_html=True)
+            st.write(f"<div style='color:#1968D4; font-size:20px; font-weight:bold'>F1-Score: {f1*100:.2f}%</div>", unsafe_allow_html=True)
+            st.write("<div style='font-size:18px; font-weight:bold'> --> Média poderada: Calculada através da média harmônica de Precisão e Sensibilidade</div>", unsafe_allow_html=True )
             
 
             #Visualização dos Cálculos            
             st.write(" ")            
             st.subheader(":blue[**Retorno Financeiro calculado de acordo com a Matriz ao lado**]", divider="blue", help="Abaixo você confere o impacto do modelo\
                          do ponto de vista de negócio")
-            st.write("<div style='font-size:22px; font-weight:bold'> Valor Mensal Obtido com Retenção de Clientes:</div>", unsafe_allow_html=True)
-            st.write(f"<div style='color:green; font-size:20px; font-weight:bold'>Clientes com risco de evasão corretamente \
+            st.write("<div style='font-size:20px; font-weight:bold'> Valor Mensal Obtido com Retenção de Clientes:</div>", unsafe_allow_html=True)
+            st.write(f"<div style='color:green; font-size:18px; font-weight:bold'>Clientes com risco de evasão corretamente \
                      identificados --- > R$ {calculo_retencao:,.2f}</div><br>", unsafe_allow_html=True)
-            st.write("<div style='font-size:22px; font-weight:bold'> Valor Mensal gasto com Clientes fora de Risco:</div>", unsafe_allow_html=True)
-            st.write(f"<div style='color:red; font-size:20px; font-weight:bold'> Clientes sem risco de evasão classificados \
+            st.write("<div style='font-size:20px; font-weight:bold'> Valor Mensal gasto com Clientes fora de Risco:</div>", unsafe_allow_html=True)
+            st.write(f"<div style='color:red; font-size:18px; font-weight:bold'> Clientes sem risco de evasão classificados \
                      como em risco --- > R$ {calculo_campanha:,.2f}</div><br>", unsafe_allow_html=True)
-            st.write("<div style='font-size:22px; font-weight:bold'> Valor Mensal Perdido com Evasões:</div>", unsafe_allow_html=True)
-            st.write(f"<div style='color:red; font-size:20px; font-weight:bold'>Clientes com risco de evasão não identificados\
+            st.write("<div style='font-size:20px; font-weight:bold'> Valor Mensal Perdido com Evasões:</div>", unsafe_allow_html=True)
+            st.write(f"<div style='color:red; font-size:18px; font-weight:bold'>Clientes com risco de evasão não identificados\
                      --- > R$ {calculo_perdas:,.2f}</div><br>", unsafe_allow_html=True)
-            st.write("<div style='font-size:20px; font-weight:bold'>O valor acima representa uma oportunidade de melhoria no modelo.\
+            st.write("<div style='font-size:18px; font-weight:bold'>O valor acima representa uma oportunidade de melhoria no modelo.\
                      Essa melhoria possibilitaria a identificação e retençao de mais clientes. Com ajustes precisos, as perdas poderiam ser reduzidas,\
                      aumentando a eficiência do negócio.</div><br>", unsafe_allow_html=True)
                         
-            st.write("<div style='font-size:35px; font-weight:bold'>Impacto Financeiro Final</div>", unsafe_allow_html=True)
+            st.write("<div style='font-size:30px; font-weight:bold'>Impacto Financeiro Final</div>", unsafe_allow_html=True)
 
             if retorno_liquido >0:                
-                st.write(f"<div style='color:green; font-size:27px; font-weight:bold'>Valor Líquido Mensal Retornado com o Uso do Modelo: \
+                st.write(f"<div style='color:green; font-size:25px; font-weight:bold'>Valor Líquido Mensal Retornado com o Uso do Modelo: \
                                         {retorno_liquido:,.2f}</div>", unsafe_allow_html=True)
 
             else:                
-                st.write(f"<div style='color:red; font-size:27px; font-weight:bold'> Valor Líquido Mensal Retornado com o Uso do Modelo: \
+                st.write(f"<div style='color:red; font-size:25px; font-weight:bold'> Valor Líquido Mensal Retornado com o Uso do Modelo: \
                             {retorno_liquido:,.2f}</div>", unsafe_allow_html=True)
             
 
