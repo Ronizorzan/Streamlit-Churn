@@ -75,7 +75,7 @@ else:
         st.subheader(":green[Configurações das Explicabilidades]", divider="green", help="Use as configurações abaixo para\
                      \n mudar as configurações das explicabilidades")
         with st.expander("Clique para configurar a explicabilidade", expanded=True):
-            instancia = st.number_input("Selecione uma Linha para explicar:", min_value=1, max_value=len(st.session_state["X_teste"]), help="Selecione um cliente para \
+            instancia = st.number_input("Selecione um cliente para gerar explicação:", min_value=1, max_value=len(st.session_state["X_teste"]), help="Selecione um cliente para \
                                         \n exibir na explicabilidade local") #Número do cliente para exibir na explicabilidade local
             features = st.slider("Insira o número de Características que gostaria de exibir:", min_value=3, max_value=10, value=5, help="Use esse controle deslizante para selecionar o número\
                                  \n de atributos mais relevantes á serem exibidos" ) #Número de características para exibir nos gráficos
@@ -112,7 +112,7 @@ if processar and instancia:
             #A explicabilidade Local será implementada diretamente para maior dinamismo
             with col2:                    
                 st.header("Explicabilidade Local", divider="green", help="Os gráficos são interativos e fornecem várias funcionalidades\
-                          \n como zoom, tela cheia, download, filtragem, entre outros")
+                          \n como zoom, tela cheia, download, filtragem, entre outros" )
                 nova_instancia = X_teste[instancia,:] #Localização da linha para explicar em X_teste                                                                                                                                
 
                 # Inicializando o SHAP e obtendo os valores

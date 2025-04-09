@@ -56,7 +56,7 @@ else:
                     else:
                         gca().add_patch(Circle((j + 0.5, i + 0.5), 0.2, fill=False, color="red", linewidth=1.0))
                         legend(["Erros do Modelo", "Acertos do Modelo"], bbox_to_anchor=(0.15, -0.05))
-            st.subheader(":blue[**A Matriz abaixo exibe os erros e acertos do modelo**]", divider="blue", help="Confira abaixo o impacto do modelo\
+            st.subheader(":blue[**A Matriz abaixo exibe os erros e acertos do modelo**]", divider="blue", help="Confira abaixo o desempenho do modelo\
                                 \n do ponto de vista técnico")
             st.pyplot(cm.fig, use_container_width=True)
             st.write("""<div style="font-size:17px; font-weight:bold; color:darkblue"> 
@@ -86,9 +86,9 @@ else:
             st.write(f"<div style='color:#1968D4; font-size:20px; font-weight:bold'> Acurácia do Modelo:  {acuracia*100:.2f}%", unsafe_allow_html=True)
             st.write("<div style='font-size:18px; font-weight:bold'> --> O modelo acertou aproximadamente 8 de 10 previsões nos dados de teste </div>", unsafe_allow_html=True)
             st.write(f"<div style='color:#1968D4; font-size:20px; font-weight:bold'>Precisão(Precision): {precision*100:.2f}%</div>", unsafe_allow_html=True)
-            st.write("<div style='font-size:18px; font-weight:bold'> --> De todos os previstos como \'desertores\' quantos realmente evadiram</div>", unsafe_allow_html=True)
+            st.write("<div style='font-size:18px; font-weight:bold'> --> De todos os previstos como \'evasivos\' quantos realmente evadiram</div>", unsafe_allow_html=True)
             st.write(f"<div style='color:#1968D4; font-size:20px; font-weight:bold'>Sensibilidade(Recall):  {recall*100:.2f}%</div>", unsafe_allow_html=True)
-            st.write("<div style='font-size:18px; font-weight:bold'> --> De todos os \'desertores\', quantos foram corretamente identificados pelo Modelo </div>", unsafe_allow_html=True)
+            st.write("<div style='font-size:18px; font-weight:bold'> --> De todos os \'evasivos\', quantos foram corretamente identificados pelo Modelo </div>", unsafe_allow_html=True)
             st.write(f"<div style='color:#1968D4; font-size:20px; font-weight:bold'>F1-Score: {f1*100:.2f}%</div>", unsafe_allow_html=True)
             st.write("<div style='font-size:18px; font-weight:bold'> --> Média poderada: Calculada através da média harmônica de Precisão e Sensibilidade</div>", unsafe_allow_html=True )
             
