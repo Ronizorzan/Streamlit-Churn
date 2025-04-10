@@ -75,8 +75,9 @@ else:
         st.subheader(":green[Configurações das Explicabilidades]", divider="green", help="Use as configurações abaixo para\
                      \n mudar as configurações das explicabilidades")
         with st.expander("Clique para configurar a explicabilidade", expanded=True):
-            instancia = st.number_input("Selecione um cliente para gerar explicação:", min_value=1, max_value=len(st.session_state["X_teste"]), help="Selecione um cliente para \
-                                        \n exibir na explicabilidade local") #Número do cliente para exibir na explicabilidade local
+            instancia = st.number_input("Selecione um cliente para gerar explicação:", min_value=1, value=13,
+                                         max_value=len(st.session_state["X_teste"]), help="Selecione um cliente para \
+                                            \n exibir na explicabilidade local") #Número do cliente para exibir na explicabilidade local
             features = st.slider("Insira o número de Características que gostaria de exibir:", min_value=3, max_value=10, value=5, help="Use esse controle deslizante para selecionar o número\
                                  \n de atributos mais relevantes á serem exibidos" ) #Número de características para exibir nos gráficos
         processar = st.button("Mostrar Explicações")
@@ -174,14 +175,14 @@ if processar and instancia:
                 valor_original = y_teste[instancia]
 
                 #Transformação dos dados para sua estrutura original para maior clareza
-                instancia_selecionada_df = pd.DataFrame([nova_instancia], columns=colunas)                                
+                instancia_selecionada_df = pd.DataFrame([nova_instancia], columns=colunas, index=None)
                 instancia_selecionada_df = instancia_selecionada_df.loc[:, instancia_selecionada_df.columns.isin(shap_values_df["Atributo"])]
                 for col in instancia_selecionada_df.columns:
                     if col in encoders:
                         instancia_selecionada_df[col] = encoders[col].inverse_transform(instancia_selecionada_df[col].astype(int))
                 mapeamento_classe = {0: "Não Abandonou", 1: "Abandonou"} #Mapeamento das classes para o português
                 st.write("<div style='color:black; font-size:20px; font-weight:bold'>Valores originais do Cliente</div>", unsafe_allow_html=True)                                
-                st.write(instancia_selecionada_df)
+                st.write(instancia_selecionada_df )
                 st.write(f"<div style='color:black; font-size:19px; font-weight:bold'>   Ocorrência real: {mapeamento_classe[valor_original]}\
                      ---------  Ocorrência prevista: {mapeamento_classe[int(previsao)]}</div>", unsafe_allow_html=True)                              
                 if previsao==valor_original:
