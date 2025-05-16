@@ -3,14 +3,15 @@ import pandas as pd
 import streamlit as st
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import confusion_matrix
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import RFE
 
-
-
-
 #Configuração do Layout da página
 st.set_page_config("Classificação de Churn", layout="centered", page_icon=":robot_face:")
+
+
+
 st.title("Previsões do Modelo")
 
 
@@ -45,15 +46,63 @@ def load_data():
     floresta = RandomForestClassifier(bootstrap=True, criterion="gini", max_features=0.1, min_samples_leaf=3,
                                        min_samples_split=2, n_estimators=100, class_weight={0:1, 1:1.85}, random_state=3231)
     modelo = floresta.fit(X_treinamento, y_treinamento)
-    previsoes = cross_val_score(modelo, X_teste, y_teste, cv=5)
-    acuracia = previsoes.mean()
+    previsoes = floresta.predict(X_teste)
+    confusao = confusion_matrix(y_teste, previsoes)
+    cross_val = cross_val_score(modelo, X_teste, y_teste, cv=5)
+    acuracia = cross_val.mean()
+    
 
 
-    return churn, X_treinamento, X_teste, y_treinamento, y_teste, modelo, acuracia, encoders, encoder_y, seletor
+    return churn, X_treinamento, X_teste, y_treinamento, y_teste, modelo, acuracia, encoders, encoder_y, seletor, confusao
 
 
 
-dados, X_treinamento, X_teste, y_treinamento, y_teste, modelo, acuracia, encoders, encoder_y, seletor = load_data()
+dados, X_treinamento, X_teste, y_treinamento, y_teste, modelo, acuracia, encoders, encoder_y, seletor, confusao  = load_data()
+
+markdown = """
+        <style>
+        .footer {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px 25px;
+            border-radius: 12px;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 40px;
+            color: #343a40;
+            box-shadow: 0 4px 6px rgba(10,10,10,1.0);
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .footer a {
+            margin: 0 10px;
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .footer img {
+            height: 42px;
+            width: auto;
+            vertical-align: middle;
+        }
+        </style>
+        <div class="footer">
+            <p><strong>Desenvolvido por: Ronivan</strong></p>
+            <a href="https://github.com/Ronizorzan" target="_blank" title="GitHub">
+                <img src="https://img.icons8.com/ios-filled/50/000000/github.png" alt="GitHub">
+            </a>
+            <a href="https://www.linkedin.com/in/ronivan-zorzan-barbosa" target="_blank" title="LinkedIn">
+                <img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="LinkedIn">
+            </a>
+            <a href="https://share.streamlit.io/user/ronizorzan" target="_blank" title="Streamlit">
+                <img src="https://images.seeklogo.com/logo-png/44/1/streamlit-logo-png_seeklogo-441815.png" alt="Streamlit Community">
+            </a>
+        </div>
+        """
 
 
 #Compartilhamento de objetos entre as diferentes páginas
@@ -66,8 +115,15 @@ st.session_state["modelo"] = modelo
 st.session_state["acuracia"] = acuracia
 st.session_state["encoders"] = encoders
 st.session_state["seletor"] = seletor
-        
-
+st.session_state["confusao"] = confusao
+st.session_state["markdown"] = markdown
+# Rodapé na barra lateral com as informações do desenvolvedor
+with st.sidebar:
+    st.markdown(markdown,
+        unsafe_allow_html=True
+    )
+      
+       
 
 
 #Configuração das caixas de seleção
@@ -92,7 +148,7 @@ with st.expander("Selecione os atributos para prever"):
     st.number_input("Cobranças Mensais", min_value=0.0, step=10.0, value= 65.0),
     st.number_input("Cobranças Totais", min_value=0.0, step=100.0, value=500.0)]
     processar = st.button("Processar os Dados")
-    
+        
     #Transformação dos novos dados para previsão
     if processar and novos_dados: 
         with st.spinner("Aguarde... Carregando os Modelos"):        

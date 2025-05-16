@@ -70,8 +70,9 @@ def explicabilidade_global(modelo, colunas, features):
 
 if "modelo" not in st.session_state: #Verificação de carregamento do modelo
     st.error("O modelo não foi carregado corretamente")
-else:
+else:    
     with st.sidebar: #Configuração da barra lateral
+        markdown = st.session_state["markdown"]
         st.subheader(":green[Configurações das Explicabilidades]", divider="green", help="Use as configurações abaixo para\
                      \n mudar as configurações das explicabilidades")
         with st.expander("Clique para configurar a explicabilidade", expanded=True):
@@ -81,6 +82,7 @@ else:
             features = st.slider("Insira o número de Características que gostaria de exibir:", min_value=3, max_value=10, value=5, help="Use esse controle deslizante para selecionar o número\
                                  \n de atributos mais relevantes á serem exibidos" ) #Número de características para exibir nos gráficos
         processar = st.button("Mostrar Explicações")
+        st.markdown(markdown, unsafe_allow_html=True)
 if processar and instancia:    
         X_treinamento = st.session_state["X_treinamento"]
         y_treinamento = st.session_state["y_treinamento"]
@@ -102,7 +104,7 @@ if processar and instancia:
                 st.header("Explicabilidade Global", divider="green", help="Os gráficos são interativos e fornecem várias funcionalidades\
                           \n como zoom, tela cheia, download, filtragem, entre outros")                                            
                 st.plotly_chart(explanation, use_container_width=True)                
-                st.write("<div style='color:black; font-size:18px; font-weight:bold'>Descubra os atributos com maior influência\
+                st.write("<div style='font-size:18px; font-weight:bold'>Descubra os atributos com maior influência\
                          sobre as decisões do modelo. Observe que, de um modo geral, o modelo tende a utilizar com mais frequência\
                          os atributos mais importantes em suas previsões. Esses atributos exercem grande impacto sobre as intenções dos clientes\
                          em relação à empresa. Isso significa que os valores desses atributos podem ser essencias para determinar\
@@ -181,9 +183,9 @@ if processar and instancia:
                     if col in encoders:
                         instancia_selecionada_df[col] = encoders[col].inverse_transform(instancia_selecionada_df[col].astype(int))
                 mapeamento_classe = {0: "Não Abandonou", 1: "Abandonou"} #Mapeamento das classes para o português
-                st.write("<div style='color:black; font-size:20px; font-weight:bold'>Valores originais do Cliente</div>", unsafe_allow_html=True)                                
+                st.write("<div style='font-size:20px; font-weight:bold'>Valores originais do Cliente</div>", unsafe_allow_html=True)                                
                 st.write(instancia_selecionada_df )
-                st.write(f"<div style='color:black; font-size:19px; font-weight:bold'>   Ocorrência real: {mapeamento_classe[valor_original]}\
+                st.write(f"<div style='font-size:19px; font-weight:bold'>   Ocorrência real: {mapeamento_classe[valor_original]}\
                      ---------  Ocorrência prevista: {mapeamento_classe[int(previsao)]}</div>", unsafe_allow_html=True)                              
                 if previsao==valor_original:
                     st.write("<div style='color:green; font-size:25px; font-weight:bold'>A previsão do Modelo está correta ✅</div> ", unsafe_allow_html=True)

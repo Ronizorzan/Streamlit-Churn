@@ -16,6 +16,8 @@ else:
     y_treinamento = st.session_state["y_treinamento"]
     X_teste = st.session_state["X_teste"]
     y_teste = st.session_state["y_teste"]
+    confusao = st.session_state["confusao"]
+    markdown = st.session_state["markdown"]
 
     #Configuração da barra lateral
     with st.sidebar.expander("Configurações Financeiras", expanded=True):
@@ -23,13 +25,12 @@ else:
                                          help="Insira o valor médio gasto por cada cliente")
         gasto_campanhas = st.number_input("Insira o Gasto Médio por Cliente com Campanhas ", min_value=0.0, value=5.0, step=1.0, 
                                           help="Insira o gasto médio com campanhas")
-        retencao = st.slider("Porcentagem de Clientes retidos com campanhas", min_value=0.0, max_value=100.0, value=90.0, 
+        retencao = st.slider("Porcentagem de Clientes retidos com campanhas", min_value=0, max_value=100, value=90, 
                              help="Selecione a porcentagem de clientes retidos \
                                 \n com campanhas bem sucedidas") / 100
         previsoes = modelo.predict(X_teste)
         
-        #Cálculos das Métricas 
-        confusao = confusion_matrix(y_teste, previsoes)
+        #Cálculos das Métricas                 
         verd_neg = confusao[0][0]
         verd_posit = confusao[1][1]
         falso_posit = confusao[0][1]
@@ -40,7 +41,8 @@ else:
         recall = recall_score(y_teste, previsoes, average="macro")
         f1 = f1_score(y_teste, previsoes, average="macro")
         acuracia = st.session_state["acuracia"]
-        calcular = st.button("Calcular")
+        calcular = st.button("Calcular")        
+        st.sidebar.markdown(markdown, unsafe_allow_html=True)
     if calcular:
         col1, col2 = st.columns(2, gap="medium")
         with col1: # Matriz de Confusão Gráfica            
@@ -59,18 +61,10 @@ else:
             st.subheader(":blue[**A Matriz abaixo exibe os erros e acertos do modelo**]", divider="blue", help="Confira abaixo o desempenho do modelo\
                                 \n do ponto de vista técnico")
             st.pyplot(cm.fig, use_container_width=True)
-            st.write("""<div style="font-size:17px; font-weight:bold; color:darkblue"> 
-                     A matriz de confusão acima mostra uma visão clara do desempenho do modelo
-                    destacando os acertos e os erros do modelo. Isso nos traz uma visão realista 
-                    do desempenho do modelo.<br> Confira isso em mais detalhes abaixo. </div><br>""", unsafe_allow_html=True)
+            st.write("""<div style="font-size:28px; font-weight:bold"> 
+                     A matriz de confusão acima traz uma visão clara e abrangente\
+                    do desempenho geral do modelo.</div>""", unsafe_allow_html=True)
             
-            st.write(f"""<div style='font-size:19px; font-weight:bold'> De um total de <span style="color:darkblue">{clientes_nao_evasivos}</span>
-                     clientes com risco de evasão <span style="color:green">{verd_neg}</span> foram<br>corretamente
-                    identificados pelo modelo e <span style="color:red">{falso_posit}</span> não foram identificados.</div><br>""", unsafe_allow_html=True )
-            
-            st.write(f"""<div style='font-size:19px; font-weight:bold'> De um total de <span style="color:darkblue">{clientes_evasivos}</span>
-                     clientes sem risco de evasão <span style="color:green">{verd_posit}</span> foram<br>
-                     corretamente indentificados pelo modelo e <span style="color:red">{falso_neg}</span> não foram. </div>""", unsafe_allow_html=True )
             
             
         with col2: #Cálculos do Retorno Financeiro            
@@ -95,7 +89,7 @@ else:
 
             #Visualização dos Cálculos            
             st.write(" ")            
-            st.subheader(":blue[**Retorno Financeiro calculado de acordo com a Matriz ao lado**]", divider="blue", help="Abaixo você confere o impacto do modelo\
+            st.subheader(":blue[**Retorno Financeiro calculado através da Matriz ao lado**]", divider="blue", help="Abaixo você confere o impacto do modelo\
                          do ponto de vista de negócio")
             st.write("<div style='font-size:20px; font-weight:bold'> Valor Mensal Obtido com Retenção de Clientes:</div>", unsafe_allow_html=True)
             st.write(f"<div style='color:green; font-size:18px; font-weight:bold'>Clientes com risco de evasão corretamente \
@@ -106,10 +100,7 @@ else:
             st.write("<div style='font-size:20px; font-weight:bold'> Valor Mensal Perdido com Evasões:</div>", unsafe_allow_html=True)
             st.write(f"<div style='color:red; font-size:18px; font-weight:bold'>Clientes com risco de evasão não identificados\
                      --- > R$ {calculo_perdas:,.2f}</div><br>", unsafe_allow_html=True)
-            st.write("<div style='font-size:18px; font-weight:bold'>O valor acima representa uma oportunidade de melhoria no modelo.\
-                     Essa melhoria possibilitaria a identificação e retençao de mais clientes. Com ajustes precisos, as perdas poderiam ser reduzidas,\
-                     aumentando a eficiência do negócio.</div><br>", unsafe_allow_html=True)
-                        
+                                    
             st.write("<div style='font-size:30px; font-weight:bold'>Impacto Financeiro Final</div>", unsafe_allow_html=True)
 
             if retorno_liquido >0:                
