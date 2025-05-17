@@ -129,7 +129,7 @@ if processar and instancia:
                 # Criando o DataFrame para visualização
                 shap_values_df = pd.DataFrame({
                     'Atributo': colunas,
-                    'Valor SHAP': shap_values.round(2),
+                    'Valor SHAP': shap_values,
                     'Contribuição': colors
                 })
                 
@@ -154,7 +154,7 @@ if processar and instancia:
 
                 # Refinando o layout
                 fig.update_traces(
-                    texttemplate="%{text:.2f}",  # Formatação dos valores SHAP no gráfico
+                    texttemplate="%{x:.2f}",  # Formatação dos valores SHAP no gráfico
                     textposition='inside',  # Exibe os valores dentro das barras
                     marker=dict(line=dict(color='black', width=1.5))  # Adiciona bordas às barras
                 )

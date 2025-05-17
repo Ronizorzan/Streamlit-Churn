@@ -46,7 +46,7 @@ if calcular:
         if is_numeric:
             # Criar um nome único para a coluna discretizada
             discretized_col_name = f"{selected_attribute}_Quartiles"
-            df = discretize_to_quartiles(df.copy(), selected_attribute, discretized_col_name)
+            df = discretize_to_quartiles(df, selected_attribute, discretized_col_name)
             attribute_to_analyze = discretized_col_name # Usar a coluna discretizada para análise
         else:
             # Se categórico, usar diretamente, mas converter para string para consistência no groupby
@@ -64,7 +64,7 @@ if calcular:
         col1, col2 = st.columns(2)
 
         with col1:
-            st.subheader(f"{selected_attribute}: Como Afeta a Evasão de Clientes")
+            st.subheader(f"{selected_attribute}: Como Afeta a Evasão de Clientes")            
             fig1 = plot_churn_rate_per_category(results, selected_attribute, ref_category_label)
             st.plotly_chart(fig1, use_container_width=True)
             
@@ -76,8 +76,9 @@ if calcular:
             st.markdown(f"<div style='font-size: 20px; color: black'>\"{max_value['Categoria'].values[0]}\" é a Categoria com maior número de Clientes:\
                         {max_value['Total_Customers'].values[0]}", unsafe_allow_html=True)
             st.markdown(f"<div style='font-size: 20px; color: black'>\"{min_value['Categoria'].values[0]}\" é a Categoria com menor número de Clientes:\
-                        {min_value['Total_Customers'].values[0]}", unsafe_allow_html=True)
+                        {min_value['Total_Customers'].values[0]}", unsafe_allow_html=True)                        
                         
+                                    
             
 
         with col2:
@@ -93,11 +94,9 @@ if calcular:
                 st.markdown(f"""<div style='font-size: 20px; color: black'>\"{referencia['Categoria'].values[0]}\" é a Categoria de referência.
                             Apenas {referencia["Taxa de Evasão"].values[0]:.2f}% dos clientes nessa categoria deixaram a empresa.
                              O total de clientes atualmente nessa categoria é {referencia["Total_Customers"].values[0]} """, unsafe_allow_html=True)
-                
+                                
                                 
                
 
-    
-
-
+   
 

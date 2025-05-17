@@ -162,10 +162,10 @@ def plot_churn_rate_per_category(results_df, attribute_name, reference_category)
     x_axis_title=f'''Clientes com o valor \"{menor_taxa["Categoria"].values[0]}\" aprensentam\
 <br>a Menor Taxa de Evasão: apenas ({menor_taxa["Taxa de Evasão"].values[0]}%)'''
     
-    fig.update_traces(texttemplate='%{text:.2f}%', textposition='inside')
-    fig.update_layout(yaxis=dict(title=y_axis_title, titlefont=dict(size=17)),
+    fig.update_traces(texttemplate='%{y:.2f}%', textposition='inside')
+    fig.update_layout(yaxis=dict(title=y_axis_title, title_font=dict(size=17)),
                       legend_title_text=f'Referência: {reference_category}',
-                      xaxis=dict(title=x_axis_title, titlefont=dict(size=17)),
+                      xaxis=dict(title=x_axis_title, title_font=dict(size=17)),
                       barmode="relative")
     return fig
 
@@ -179,11 +179,11 @@ def plot_increase_in_churn_rate(results_df, attribute_name, reference_category, 
 
     if reference_churn_rate == 0:
         y_axis_title = 'Aumento Absoluto (p.p.)'
-        text_template = '%{text:.2f} p.p.'
+        text_template = '%{y:.2f} p.p.'
         title = f'Aumento Absoluto na Taxa de Evasão por {attribute_name}'
     else:
         y_axis_title = 'Aumento no risco de Evasão (%)'
-        text_template = '%{text:.0f}%'
+        text_template = '%{y:.0f}%'
         title = f'''Clientes com o valor \"{max_value["Categoria"].values[0]}\" para o atributo {attribute_name} aprensentam o maior
          <br> aumento no risco de evasão em relação ao valor de referência: ({max_value["Aumento na Taxa de Evasão (%)"].values[0]}%) '''
         x_axis_title=f'O valor de Referência é: \"{reference_category}\"'
@@ -197,10 +197,10 @@ def plot_increase_in_churn_rate(results_df, attribute_name, reference_category, 
                  text='Aumento na Taxa de Evasão (%)',
                  color_discrete_sequence=[colors],
                  title=title, 
-                 orientation="v")
+                 orientation="h")
     fig.update_traces(texttemplate=text_template, textposition='inside')
-    fig.update_layout(yaxis=dict(title=y_axis_title, titlefont=dict(size=17)),
-                      xaxis=dict(title=x_axis_title, titlefont=dict(size=17)))
+    fig.update_layout(yaxis=dict(title=y_axis_title, title_font=dict(size=17)),
+                      xaxis=dict(title=x_axis_title, title_font=dict(size=17)))
     return fig
 
 
