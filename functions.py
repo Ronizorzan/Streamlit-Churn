@@ -197,7 +197,7 @@ def plot_increase_in_churn_rate(results_df, attribute_name, reference_category, 
                  text='Aumento na Taxa de Evasão (%)',
                  color_discrete_sequence=[colors],
                  title=title, 
-                 orientation="h")
+                 orientation="v")
     fig.update_traces(texttemplate=text_template, textposition='inside')
     fig.update_layout(yaxis=dict(title=y_axis_title, title_font=dict(size=17)),
                       xaxis=dict(title=x_axis_title, title_font=dict(size=17)))
