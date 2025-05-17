@@ -41,7 +41,7 @@ def plot_barras_empilhadas(resultado):
     x = np.arange(len(taxas))
     width = 0.6
     
-    fig, ax = plt.subplots(figsize=(10, 7))
+    fig, ax = plt.subplots(figsize=(12, 8))
     
     # Plota um gráfico de barras empilhadas com retenção e evasão de clientes com e sem modelo
     ax.bar(x, clientes_retidos, width, label='Clientes que não evadiram', color='green', bottom=evasao_atual)
@@ -165,7 +165,8 @@ def plot_churn_rate_per_category(results_df, attribute_name, reference_category)
     fig.update_traces(texttemplate='%{text:.2f}%', textposition='inside')
     fig.update_layout(yaxis=dict(title=y_axis_title, titlefont=dict(size=17)),
                       legend_title_text=f'Referência: {reference_category}',
-                      xaxis=dict(title=x_axis_title, titlefont=dict(size=17)))
+                      xaxis=dict(title=x_axis_title, titlefont=dict(size=17)),
+                      barmode="relative")
     return fig
 
 def plot_increase_in_churn_rate(results_df, attribute_name, reference_category, reference_churn_rate):

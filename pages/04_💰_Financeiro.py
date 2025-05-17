@@ -44,7 +44,7 @@ else:
         calcular = st.button("Calcular")        
         st.sidebar.markdown(markdown, unsafe_allow_html=True)
     if calcular:
-        col1, col2 = st.columns(2, gap="medium")
+        col1, col2 = st.columns([0.43,0.57], gap="large")
         with col1: # Matriz de Confusão Gráfica            
             cm = ConfusionMatrix(modelo, classes=["Não", "Sim"], cmap="Blues", percent=False)            
             cm.fit(X_teste, y_teste)

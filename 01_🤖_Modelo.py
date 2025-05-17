@@ -59,6 +59,7 @@ def load_data():
 
 dados, X_treinamento, X_teste, y_treinamento, y_teste, modelo, acuracia, encoders, encoder_y, seletor, confusao  = load_data()
 
+#Exibir informações do desenvolvedor na barra lateral
 markdown = """
         <style>
         .footer {
@@ -128,7 +129,7 @@ with st.sidebar:
 
 #Configuração das caixas de seleção
 st.write(f"**Acurácia Aproximada do Modelo:**  :green[**{acuracia*100:.2f}%**]")
-with st.expander("Selecione os atributos para prever"):    
+with st.expander("Selecione os atributos para prever", expanded=True):
     novos_dados =   [st.selectbox("Gênero", dados["gender"].unique()),
     st.selectbox("Idoso", dados["SeniorCitizen"].unique()),                         
     st.selectbox("Parceiro", dados["Partner"].unique(), index=0),

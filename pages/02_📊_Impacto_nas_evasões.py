@@ -28,7 +28,7 @@ else:
     if calcular:
         resultado = calcular_metricas(matriz_confusao, taxa_retencao_estimada)
         grafico1 = plot_barras_empilhadas(resultado)
-        col1, col2 = st.columns([0.65,0.35], gap="medium")
+        col1, col2 = st.columns([0.6,0.4], gap="medium")
         with col1:
             st.pyplot(grafico1, use_container_width=True)
         

@@ -146,6 +146,7 @@ if processar and instancia:
                     text='Valor SHAP',  # Exibindo os valores SHAP nos gráficos
                     color_discrete_map={"Abandono": "#FF1000", "Não Abandono": "#006000"},
                     orientation='h',  # Gráfico horizontal para melhor legibilidade                    
+                    barmode="relative",
                     labels={
                         "Valor da Contribuição": "Contribuição SHAP",
                         "Atributo": "Característica"
