@@ -163,7 +163,7 @@ def plot_churn_rate_per_category(results_df, attribute_name, reference_category)
 <br>a Menor Taxa de Evasão: apenas ({menor_taxa["Taxa de Evasão"].values[0]}%)'''
     
     fig.update_traces(texttemplate='%{y:.2f}%', textposition='inside')
-    fig.update_layout(yaxis=dict(dict(tickformat=".0%"), title=y_axis_title, title_font=dict(size=17)),
+    fig.update_layout(yaxis=dict(dict(tickformat=".0f%"), title=y_axis_title, title_font=dict(size=17)),
                       legend_title_text=f'Referência: {reference_category}',
                       xaxis=dict(title=x_axis_title, title_font=dict(size=17)),
                       barmode="relative")
@@ -199,7 +199,7 @@ def plot_increase_in_churn_rate(results_df, attribute_name, reference_category, 
                  title=title, 
                  orientation="v")
     fig.update_traces(texttemplate=text_template, textposition='inside')
-    fig.update_layout(yaxis=dict(dict(tickformat=".0%"), title=y_axis_title, title_font=dict(size=17)),
+    fig.update_layout(yaxis=dict(dict(tickformat=".0f%"), title=y_axis_title, title_font=dict(size=17)),
                       xaxis=dict(title=x_axis_title, title_font=dict(size=17)))
     return fig
 
