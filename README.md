@@ -1,12 +1,15 @@
-Streamlit-Churn
+*Streamlit-Churn*
 ***Aplicação Web Streamlit para Classificação de Churn***
 
-A aplicação possui 5 páginas:
+**A aplicação possui 5 páginas:**
 
 **Modelo:**  *É a página onde é possível utilizar o modelo treinado para fazer previsões e receber os resultados de 2 formas, 
 De forma binária (sim ou não) e de forma percentual*
 
-*Análise de Evasão e retenção:**  *É a página que permite comparar as taxas de retenção e evasão com e sem o uso do modelo.
+**Análise Descriva:** *Essa página permite gerar 2 análises: 1 -> Taxa de Evasão de Clientes - 2-> Variação Percentual na Evasão de Clientes.
+Os cálculos são gerados de acordo com um atributo que pode ser escolhido na barra lateral.*
+
+**Análise de Evasão e retenção:**  *É a página que permite comparar as taxas de retenção e evasão com e sem o uso do modelo.
 Ela permite a inserção da eficácia das campanhas de marketing e a visualização dos retornos*
 
 **Interpretabilidade do Modelo:**  *É a página que contém a IA Explicável. Ela oferece gráficos e abordagens bastante sofisticadas para um
