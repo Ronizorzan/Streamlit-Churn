@@ -91,24 +91,24 @@ else:
             st.write(" ")   
             st.subheader(":blue[**Retorno Financeiro calculado através da Matriz ao lado**]", divider="blue", help="Abaixo você confere o impacto do modelo\
                          do ponto de vista de negócio")
-            st.write("<div style='font-size:20px; font-weight:bold'> Valor Mensal Obtido com Retenção de Clientes:</div>", unsafe_allow_html=True)
+            st.write("<div style='font-size:22px; font-weight:bold'> Valor Mensal Obtido com Retenção de Clientes:</div>", unsafe_allow_html=True)
             st.write(f"<div style='color:green; font-size:20px; font-weight:bold'>Clientes com risco de evasão corretamente \
-                     identificados --- > R$ {calculo_retencao:,.2f}</div><br>", unsafe_allow_html=True)
-            st.write("<div style='font-size:20px; font-weight:bold'> Valor Mensal gasto com Clientes fora de Risco:</div>", unsafe_allow_html=True)
+                     identificados --> R$ {calculo_retencao:,.2f}</div><br>", unsafe_allow_html=True)
+            st.write("<div style='font-size:22px; font-weight:bold'> Valor Mensal gasto com Clientes fora de Risco:</div>", unsafe_allow_html=True)
             st.write(f"<div style='color:red; font-size:20px; font-weight:bold'> Clientes sem risco de evasão classificados \
-                     como em risco --- > R$ {calculo_campanha:,.2f}</div><br>", unsafe_allow_html=True)
-            st.write("<div style='font-size:20px; font-weight:bold'> Valor Mensal Perdido com Evasões:</div>", unsafe_allow_html=True)
+                     como em risco --> R$ {calculo_campanha:,.2f}</div><br>", unsafe_allow_html=True)
+            st.write("<div style='font-size:22px; font-weight:bold'> Valor Mensal Perdido com Evasões:</div>", unsafe_allow_html=True)
             st.write(f"<div style='color:red; font-size:20px; font-weight:bold'>Clientes com risco de evasão não identificados\
-                     --- > R$ {calculo_perdas:,.2f}</div><br>", unsafe_allow_html=True)
+                     --> R$ {calculo_perdas:,.2f}</div><br>", unsafe_allow_html=True)
                                     
             st.write("<div style='font-size:30px; font-weight:bold'>Impacto Financeiro Final</div>", unsafe_allow_html=True)
 
             if retorno_liquido >0:                
-                st.write(f"<div style='color:green; font-size:25px; font-weight:bold'>Valor Líquido Mensal Retornado com o Uso do Modelo: \
+                st.write(f"<div style='color:green; font-size:23px; font-weight:bold'>Valor Líquido Mensal Retornado com o Uso do Modelo: \
                                         {retorno_liquido:,.2f}</div>", unsafe_allow_html=True)
 
             else:                
-                st.write(f"<div style='color:red; font-size:25px; font-weight:bold'> Valor Líquido Mensal Retornado com o Uso do Modelo: \
+                st.write(f"<div style='color:red; font-size:23px; font-weight:bold'> Valor Líquido Mensal Retornado com o Uso do Modelo: \
                             {retorno_liquido:,.2f}</div>", unsafe_allow_html=True)
             
 
